@@ -29,7 +29,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           self.subscribeToKeyboardNotifications()
      }
      
-     
      override func viewWillDisappear(animated: Bool) {
           self.unsubscribeFromKeyboardNotifications()
           
@@ -44,9 +43,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           
           topTextField.delegate = self
           bottomTextField.delegate = self
-          
-          
-          
+
           topTextField.defaultTextAttributes = memeTextAttributes
           bottomTextField.defaultTextAttributes = memeTextAttributes
           
@@ -120,7 +117,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           return true
      }
      
-     
      func subscribeToKeyboardNotifications() {
           NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
           
@@ -153,6 +149,33 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           }
      }
      
+     func generateMemedImage() -> UIImage {
+          
+          // TODO: Hide toolbar and navbar
+          
+          // Render view to an image
+          UIGraphicsBeginImageContext(self.view.frame.size)
+          self.view.drawViewHierarchyInRect(self.view.frame,
+               afterScreenUpdates: true)
+          let memedImage : UIImage =
+          UIGraphicsGetImageFromCurrentImageContext()
+          UIGraphicsEndImageContext()
+          
+          // TODO:  Show toolbar and navbar       
+          
+          return memedImage
+     }
      
+     func save() {
+          //Create the meme
+          var meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, image:
+               selectedImageView.image!, memedImage: self.generateMemedImage())
+          
+          // Add it to the memes array in the Application Delegate
+          (UIApplication.sharedApplication().delegate as!
+               AppDelegate).memes.append(meme)
+     }
+     
+
 }
 
