@@ -20,6 +20,22 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Obt-lB-WCu">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="DJJ-uq-RuF">
+                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="16" y="64" width="368" height="80"/>
+                                </variation>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="C3c-zD-Izl">
+                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="16" y="476" width="368" height="80"/>
+                                </variation>
+                            </textField>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nkC-hX-MzD">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
@@ -29,41 +45,33 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Cu2-5j-YI9"/>
-                                    <barButtonItem systemItem="save" id="1tA-nl-3IA"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="eJH-B1-0Ea"/>
                                     <barButtonItem systemItem="camera" id="kI6-Sk-36U">
                                         <connections>
                                             <action selector="pickAnImageFromCamera:" destination="vXZ-lx-hvc" id="Q6e-DX-c2R"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbS-OM-eN1">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <barButtonItem systemItem="action" id="EzD-7Q-pMD"/>
+                                    <barButtonItem systemItem="action" id="EzD-7Q-pMD">
+                                        <connections>
+                                            <action selector="saveButtonPressed:" destination="vXZ-lx-hvc" id="l1s-8l-VZg"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="NTu-wA-1Go"/>
-                                    <barButtonItem systemItem="trash" id="jrt-pC-Dj2"/>
+                                    <barButtonItem systemItem="trash" id="jrt-pC-Dj2">
+                                        <connections>
+                                            <action selector="resetEditor:" destination="vXZ-lx-hvc" id="L5G-uY-GSq"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="C3c-zD-Izl">
-                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="16" y="476" width="368" height="80"/>
-                                </variation>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="DJJ-uq-RuF">
-                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="16" y="64" width="368" height="80"/>
-                                </variation>
-                            </textField>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="nkC-hX-MzD" secondAttribute="bottom" id="3vE-kX-lLm"/>
                             <constraint firstItem="nkC-hX-MzD" firstAttribute="top" secondItem="C3c-zD-Izl" secondAttribute="bottom" id="4pg-Hh-oEE"/>
@@ -85,10 +93,10 @@
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="Obt-lB-WCu"/>
+                                <exclude reference="DJJ-uq-RuF"/>
+                                <exclude reference="C3c-zD-Izl"/>
                                 <exclude reference="nkC-hX-MzD"/>
                                 <exclude reference="gbS-OM-eN1"/>
-                                <exclude reference="C3c-zD-Izl"/>
-                                <exclude reference="DJJ-uq-RuF"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="XGM-Wn-eCs"/>
@@ -112,10 +120,10 @@
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="Obt-lB-WCu"/>
+                                <include reference="DJJ-uq-RuF"/>
+                                <include reference="C3c-zD-Izl"/>
                                 <include reference="nkC-hX-MzD"/>
                                 <include reference="gbS-OM-eN1"/>
-                                <include reference="C3c-zD-Izl"/>
-                                <include reference="DJJ-uq-RuF"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="XGM-Wn-eCs"/>
@@ -139,9 +147,13 @@
                     </view>
                     <connections>
                         <outlet property="bottomTextField" destination="C3c-zD-Izl" id="hzh-y5-RLs"/>
+                        <outlet property="bottomToolbar" destination="nkC-hX-MzD" id="l58-vW-mLR"/>
                         <outlet property="cameraButton" destination="kI6-Sk-36U" id="X2M-6C-w12"/>
+                        <outlet property="resetButton" destination="jrt-pC-Dj2" id="H2U-4C-uMn"/>
                         <outlet property="selectedImageView" destination="Obt-lB-WCu" id="u5F-wz-qsa"/>
+                        <outlet property="shareButton" destination="EzD-7Q-pMD" id="aji-6A-PIq"/>
                         <outlet property="topTextField" destination="DJJ-uq-RuF" id="S1G-8y-cwc"/>
+                        <outlet property="topToolbar" destination="gbS-OM-eN1" id="1yO-yh-Nc4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

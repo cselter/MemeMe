@@ -12,9 +12,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
      
      @IBOutlet weak var selectedImageView: UIImageView!
      @IBOutlet weak var cameraButton: UIBarButtonItem!
+     @IBOutlet weak var shareButton: UIBarButtonItem!
+     @IBOutlet weak var resetButton: UIBarButtonItem!
      
      @IBOutlet weak var topTextField: UITextField!
      @IBOutlet weak var bottomTextField: UITextField!
+     @IBOutlet weak var topToolbar: UIToolbar!
+     @IBOutlet weak var bottomToolbar: UIToolbar!
      
      let memeTextAttributes = [
           NSStrokeColorAttributeName : UIColor.blackColor(),
@@ -27,6 +31,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
           
           self.subscribeToKeyboardNotifications()
+          
+          
      }
      
      override func viewWillDisappear(animated: Bool) {
@@ -49,6 +55,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           
           topTextField.textAlignment = NSTextAlignment.Center
           bottomTextField.textAlignment = NSTextAlignment.Center
+          
+          shareButton.enabled = false
+          resetButton.enabled = false
      }
      
      override func didReceiveMemoryWarning() {
@@ -62,6 +71,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           pickerController.delegate = self
           pickerController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
           self.presentViewController(pickerController, animated: true, completion: nil)
+          
+          shareButton.enabled = true
+          resetButton.enabled = true
      }
      
      // Select image from camera
@@ -70,6 +82,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           imagePicker.delegate = self
           imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
           self.presentViewController(imagePicker, animated: true, completion: nil)
+          
+          
+          
      }
      
      func imagePickerController(picker: UIImagePickerController,
@@ -79,6 +94,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     self.selectedImageView.image = image
                }
                self.dismissViewControllerAnimated(true, completion: nil)
+               
+               
      }
      
      // Dismisses image picker when user selects cancel
@@ -96,6 +113,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           if bottomTextField.text == "BOTTOM" {
                bottomTextField.text = ""
           }
+          
+          resetButton.enabled = true
      }
      
      // Replaces default text if user leaves blank
@@ -152,6 +171,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
      func generateMemedImage() -> UIImage {
           
           // TODO: Hide toolbar and navbar
+          topToolbar.alpha = 0
+          bottomToolbar.alpha = 0
           
           // Render view to an image
           UIGraphicsBeginImageContext(self.view.frame.size)
@@ -161,7 +182,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           UIGraphicsGetImageFromCurrentImageContext()
           UIGraphicsEndImageContext()
           
-          // TODO:  Show toolbar and navbar       
+          // TODO:  Show toolbar and navbar
+          topToolbar.alpha = 1
+          bottomToolbar.alpha = 1
           
           return memedImage
      }
@@ -171,11 +194,27 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           var meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, image:
                selectedImageView.image!, memedImage: self.generateMemedImage())
           
+          // Save to camera roll
+          UIImageWriteToSavedPhotosAlbum(generateMemedImage(), nil, nil, nil)
+          
           // Add it to the memes array in the Application Delegate
           (UIApplication.sharedApplication().delegate as!
                AppDelegate).memes.append(meme)
      }
      
-
+     @IBAction func saveButtonPressed(sender: AnyObject) {
+          save()
+     }
+     
+     // reset the fields and image view for a new meme
+     @IBAction func resetEditor(sender: AnyObject) {
+          topTextField.text = "TOP"
+          bottomTextField.text = "BOTTOM"
+          selectedImageView.image = nil
+          shareButton.enabled = false
+          resetButton.enabled = false
+     }
+     
+     
 }
 
