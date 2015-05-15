@@ -14,6 +14,7 @@
 		9DFCB4401B028E92000835C2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DFCB43E1B028E92000835C2 /* LaunchScreen.xib */; };
 		9DFCB44C1B028E92000835C2 /* MemeMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB44B1B028E92000835C2 /* MemeMeTests.swift */; };
 		9DFCB4561B029279000835C2 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB4551B029279000835C2 /* Meme.swift */; };
+		9DFCB4581B02DD30000835C2 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFCB4571B02DD30000835C2 /* TableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		9DFCB44A1B028E92000835C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DFCB44B1B028E92000835C2 /* MemeMeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeMeTests.swift; sourceTree = "<group>"; };
 		9DFCB4551B029279000835C2 /* Meme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
+		9DFCB4571B02DD30000835C2 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				9DFCB4351B028E92000835C2 /* AppDelegate.swift */,
 				9DFCB4371B028E92000835C2 /* ViewController.swift */,
 				9DFCB4391B028E92000835C2 /* Main.storyboard */,
+				9DFCB4571B02DD30000835C2 /* TableViewController.swift */,
 				9DFCB4551B029279000835C2 /* Meme.swift */,
 				9DFCB43C1B028E92000835C2 /* Images.xcassets */,
 				9DFCB43E1B028E92000835C2 /* LaunchScreen.xib */,
@@ -218,6 +221,7 @@
 				9DFCB4561B029279000835C2 /* Meme.swift in Sources */,
 				9DFCB4381B028E92000835C2 /* ViewController.swift in Sources */,
 				9DFCB4361B028E92000835C2 /* AppDelegate.swift in Sources */,
+				9DFCB4581B02DD30000835C2 /* TableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

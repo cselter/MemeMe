@@ -31,8 +31,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
           
           self.subscribeToKeyboardNotifications()
-          
-          
      }
      
      override func viewWillDisappear(animated: Bool) {
@@ -169,8 +167,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
      }
      
      func generateMemedImage() -> UIImage {
-          
-          // TODO: Hide toolbar and navbar
+          // Hide toolbar and navbar
           topToolbar.alpha = 0
           bottomToolbar.alpha = 0
           
@@ -182,7 +179,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           UIGraphicsGetImageFromCurrentImageContext()
           UIGraphicsEndImageContext()
           
-          // TODO:  Show toolbar and navbar
+          // Show toolbar and navbar
           topToolbar.alpha = 1
           bottomToolbar.alpha = 1
           
@@ -194,7 +191,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           var meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, image:
                selectedImageView.image!, memedImage: self.generateMemedImage())
           
-          // Save to camera roll
+          // Save to camera roll ((TO BE REMOVED LATER WHEN ACTIVITY VC IS COMPLETED))
           UIImageWriteToSavedPhotosAlbum(generateMemedImage(), nil, nil, nil)
           
           // Add it to the memes array in the Application Delegate
@@ -202,8 +199,29 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                AppDelegate).memes.append(meme)
      }
      
-     @IBAction func saveButtonPressed(sender: AnyObject) {
+     // launches Activity View Controller
+     func share() {
+          
+          let completedMeme = generateMemedImage()
+          
+          let activityVC = UIActivityViewController(activityItems: [completedMeme], applicationActivities: nil)
+          
+          self.presentViewController(activityVC, animated: true, completion: nil)
+          
           save()
+          
+          //activityVC.completionWithItemsHandler = {(AnyObject) in
+          //     self.save()
+          //}
+          
+          // completionWithItemsHandler instead of save???
+     }
+     
+     
+     
+     
+     @IBAction func shareButtonPressed(sender: AnyObject) {
+          share()
      }
      
      // reset the fields and image view for a new meme
