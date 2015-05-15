@@ -9,10 +9,15 @@
 import Foundation
 import UIKit
 
-class TableViewController: UITableViewController {
+class TableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
+     
+     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
      
      
      
+     var memes: [memes]
+     
+     @IBOutlet weak var tableView: UITableView!
      
      
 }

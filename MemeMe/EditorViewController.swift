@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  EditorViewController.swift
 //  MemeMe
 //
 //  Created by Christopher Burgess on 5/12/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class EditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
      
      @IBOutlet weak var selectedImageView: UIImageView!
      @IBOutlet weak var cameraButton: UIBarButtonItem!
@@ -58,20 +58,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           resetButton.enabled = false
      }
      
-     override func didReceiveMemoryWarning() {
-          super.didReceiveMemoryWarning()
-          // Dispose of any resources that can be recreated.
-     }
-     
      // Select image from photo library to use
      @IBAction func pickImage(sender: AnyObject) {
           let pickerController = UIImagePickerController()
           pickerController.delegate = self
           pickerController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
           self.presentViewController(pickerController, animated: true, completion: nil)
-          
-          shareButton.enabled = true
-          resetButton.enabled = true
      }
      
      // Select image from camera
@@ -80,9 +72,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           imagePicker.delegate = self
           imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
           self.presentViewController(imagePicker, animated: true, completion: nil)
-          
-          
-          
      }
      
      func imagePickerController(picker: UIImagePickerController,
@@ -93,7 +82,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                }
                self.dismissViewControllerAnimated(true, completion: nil)
                
-               
+               shareButton.enabled = true
+               resetButton.enabled = true
      }
      
      // Dismisses image picker when user selects cancel
@@ -136,14 +126,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
      
      func subscribeToKeyboardNotifications() {
           NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-          
           NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
      }
      
      func unsubscribeFromKeyboardNotifications() {
           NSNotificationCenter.defaultCenter().removeObserver(self, name:
                UIKeyboardWillShowNotification, object: nil)
-          
           NSNotificationCenter.defaultCenter().removeObserver(self, name:
                UIKeyboardWillHideNotification, object: nil)
      }
@@ -162,7 +150,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
      
      func keyboardWillHide(notification: NSNotification) {
           if bottomTextField.isFirstResponder() {
-               self.view.frame.origin.y += getKeyboardHeight(notification)
+               self.view.frame.origin.y = 0
           }
      }
      
@@ -191,12 +179,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           var meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, image:
                selectedImageView.image!, memedImage: self.generateMemedImage())
           
-          // Save to camera roll ((TO BE REMOVED LATER WHEN ACTIVITY VC IS COMPLETED))
-          UIImageWriteToSavedPhotosAlbum(generateMemedImage(), nil, nil, nil)
-          
           // Add it to the memes array in the Application Delegate
           (UIApplication.sharedApplication().delegate as!
                AppDelegate).memes.append(meme)
+          
+          self.dismissViewControllerAnimated(true, completion: nil)
      }
      
      // launches Activity View Controller
@@ -206,20 +193,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
           
           let activityVC = UIActivityViewController(activityItems: [completedMeme], applicationActivities: nil)
           
+          activityVC.completionWithItemsHandler = {
+               (s: String!, ok: Bool, items: [AnyObject]!, err:NSError!) -> Void in
+               if ok {
+                    self.save()
+               }
+          }
+          
           self.presentViewController(activityVC, animated: true, completion: nil)
-          
-          save()
-          
-          //activityVC.completionWithItemsHandler = {(AnyObject) in
-          //     self.save()
-          //}
-          
-          // completionWithItemsHandler instead of save???
      }
      
-     
-     
-     
+
      @IBAction func shareButtonPressed(sender: AnyObject) {
           share()
      }
