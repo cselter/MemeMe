@@ -53,13 +53,13 @@
                                 <items>
                                     <barButtonItem systemItem="action" id="EzD-7Q-pMD">
                                         <connections>
-                                            <action selector="shareButtonPressed:" destination="vXZ-lx-hvc" id="X3M-At-AsK"/>
+                                            <action selector="share:" destination="vXZ-lx-hvc" id="DcQ-i2-3IT"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="NTu-wA-1Go"/>
                                     <barButtonItem systemItem="trash" id="jrt-pC-Dj2">
                                         <connections>
-                                            <action selector="resetEditor:" destination="vXZ-lx-hvc" id="L5G-uY-GSq"/>
+                                            <action selector="resetEditor:" destination="vXZ-lx-hvc" id="UGH-Ye-gbd"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -138,9 +138,9 @@
                         <outlet property="bottomTextField" destination="C3c-zD-Izl" id="hzh-y5-RLs"/>
                         <outlet property="bottomToolbar" destination="nkC-hX-MzD" id="l58-vW-mLR"/>
                         <outlet property="cameraButton" destination="kI6-Sk-36U" id="X2M-6C-w12"/>
-                        <outlet property="resetButton" destination="jrt-pC-Dj2" id="H2U-4C-uMn"/>
+                        <outlet property="resetButton" destination="jrt-pC-Dj2" id="4Vq-g1-vh1"/>
                         <outlet property="selectedImageView" destination="Obt-lB-WCu" id="u5F-wz-qsa"/>
-                        <outlet property="shareButton" destination="EzD-7Q-pMD" id="aji-6A-PIq"/>
+                        <outlet property="shareButton" destination="EzD-7Q-pMD" id="9G9-WA-h9z"/>
                         <outlet property="topTextField" destination="DJJ-uq-RuF" id="S1G-8y-cwc"/>
                         <outlet property="topToolbar" destination="gbS-OM-eN1" id="1yO-yh-Nc4"/>
                     </connections>
@@ -299,7 +299,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" name="selectedTextBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" red="0.31870770267218129" green="0.41450712787327348" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="q5A-BJ-kCU" firstAttribute="leading" secondItem="aEB-au-Qci" secondAttribute="leadingMargin" id="C1C-nC-CGt"/>
                             <constraint firstItem="q5A-BJ-kCU" firstAttribute="top" secondItem="YNs-UB-OnJ" secondAttribute="bottom" constant="20" id="fU4-lW-erx"/>

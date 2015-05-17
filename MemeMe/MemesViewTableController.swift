@@ -13,14 +13,15 @@ class MemesViewTableController: UITableViewController, UITableViewDataSource, UI
      
      let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
      
+     // Lower the top of the table view
      func viewDidAppear() {
           self.tableView!.contentInset = UIEdgeInsetsMake(-36, 0, 0, 0);
      }
      
+     // Reload the data each time the view is selected
      override func viewWillAppear(animated: Bool) {
           self.tableView?.reloadData()
      }
-     
      
      // gets the number of items in the meme array
      override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -28,6 +29,7 @@ class MemesViewTableController: UITableViewController, UITableViewDataSource, UI
           return count
      }
   
+     // Return cell for each grid row
      override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
           let cell = tableView.dequeueReusableCellWithIdentifier("MemeTableCell", forIndexPath: indexPath) as! UITableViewCell
           
@@ -40,7 +42,7 @@ class MemesViewTableController: UITableViewController, UITableViewDataSource, UI
           return cell
      }
      
-     
+     // Show Detail View when row is selected
      override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
           let detailController = self.storyboard?.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
           

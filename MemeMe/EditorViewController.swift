@@ -39,12 +39,10 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
      
      override func viewWillDisappear(animated: Bool) {
           self.unsubscribeFromKeyboardNotifications()
-          
      }
      
      override func viewDidLoad() {
           super.viewDidLoad()
-          // Do any additional setup after loading the view, typically from a nib.
           
           topTextField.text = "TOP"
           bottomTextField.text = "BOTTOM"
@@ -59,7 +57,6 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
           bottomTextField.textAlignment = NSTextAlignment.Center
           
           shareButton.enabled = false
-          resetButton.enabled = false
      }
      
      // Select image from photo library to use
@@ -78,6 +75,7 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
           self.presentViewController(imagePicker, animated: true, completion: nil)
      }
      
+     // Dismisses image picker when image is selected from camera or library
      func imagePickerController(picker: UIImagePickerController,
           didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
                
@@ -87,7 +85,6 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
                self.dismissViewControllerAnimated(true, completion: nil)
                
                shareButton.enabled = true
-               resetButton.enabled = true
      }
      
      // Dismisses image picker when user selects cancel
@@ -128,6 +125,7 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
           return true
      }
      
+     // keyboard notifications, show/hide
      func subscribeToKeyboardNotifications() {
           NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
           NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
@@ -158,6 +156,7 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
           }
      }
      
+     // create the meme
      func generateMemedImage() -> UIImage {
           // Hide toolbar and navbar
           topToolbar.alpha = 0
@@ -178,6 +177,7 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
           return memedImage
      }
      
+     // save the meme!
      func save() {
           //Create the meme
           var meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, image:
@@ -189,15 +189,12 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
           
           self.dismissViewControllerAnimated(true, completion: nil)
           
-          let count = (UIApplication.sharedApplication().delegate as!
-               AppDelegate).memes.count
-          
           let topTextFieldSaved = (UIApplication.sharedApplication().delegate as!
                AppDelegate).memes[0].topText
      }
      
      // launches Activity View Controller
-     func share() {
+     @IBAction func share(sender: AnyObject) {
           
           let completedMeme = generateMemedImage()
           
@@ -213,17 +210,15 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
           self.presentViewController(activityVC, animated: true, completion: nil)
      }
      
-     @IBAction func shareButtonPressed(sender: AnyObject) {
-          share()
-     }
-     
-     // reset the fields and image view for a new meme
+     // reset the fields and image view for a new meme & dismisses view
      @IBAction func resetEditor(sender: AnyObject) {
           topTextField.text = "TOP"
           bottomTextField.text = "BOTTOM"
           selectedImageView.image = nil
           shareButton.enabled = false
           resetButton.enabled = false
+          
+          self.dismissViewControllerAnimated(true, completion: nil)
      }
 }
 

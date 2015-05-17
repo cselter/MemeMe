@@ -13,10 +13,12 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
      
      let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
      
+     // Lower the top of the table view
      func viewDidAppear() {
           self.collectionView!.contentInset = UIEdgeInsetsMake(-36, 0, 0, 0);
      }
      
+     // Reload the data each time the view is selected
      override func viewWillAppear(animated: Bool) {
           self.collectionView?.reloadData()
           self.collectionView?.backgroundColor = UIColor.whiteColor()
@@ -28,6 +30,7 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
           return count
      }
      
+     // Return cell for each grid cell
      override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
           let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MemeCollectionViewCell", forIndexPath: indexPath) as! MemeCollectionViewCell
           
@@ -40,6 +43,7 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
           return cell
      }
      
+     // Show Detail View when cell is selected
      override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
           let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
           
