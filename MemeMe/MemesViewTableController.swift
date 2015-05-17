@@ -21,6 +21,7 @@ class MemesViewTableController: UITableViewController, UITableViewDataSource, UI
           self.tableView?.reloadData()
      }
      
+     
      // gets the number of items in the meme array
      override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
           let count = appDelegate.memes.count
@@ -31,13 +32,20 @@ class MemesViewTableController: UITableViewController, UITableViewDataSource, UI
           let cell = tableView.dequeueReusableCellWithIdentifier("MemeTableCell", forIndexPath: indexPath) as! UITableViewCell
           
           let memeCell = appDelegate.memes[indexPath.row]
-          
+
           cell.imageView?.image = memeCell.memedImage
           
           cell.textLabel?.text = memeCell.topText
-     
-          cell.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
-          
+    
           return cell
+     }
+     
+     
+     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+          let detailController = self.storyboard?.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
+          
+          detailController.meme = self.appDelegate.memes[indexPath.row]
+          
+          self.navigationController?.pushViewController(detailController, animated: true)
      }
 }

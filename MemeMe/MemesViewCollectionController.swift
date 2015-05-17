@@ -29,14 +29,22 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
      }
      
      override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-          let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MemeGridCell", forIndexPath: indexPath) as! UICollectionViewCell
+          let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MemeCollectionViewCell", forIndexPath: indexPath) as! MemeCollectionViewCell
           
           let meme = appDelegate.memes[indexPath.row]
           
-          let imageView = UIImageView(image: meme.memedImage)
+          cell.cellImageView?.image = meme.memedImage
           
-          cell.backgroundView = imageView
+          cell.backgroundView = cell.cellImageView
           
           return cell
+     }
+     
+     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+          let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
+          
+          detailController.meme = self.appDelegate.memes[indexPath.row]
+          
+          self.navigationController!.pushViewController(detailController, animated: true)
      }
 }
