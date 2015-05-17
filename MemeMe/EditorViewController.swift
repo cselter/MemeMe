@@ -184,6 +184,12 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
                AppDelegate).memes.append(meme)
           
           self.dismissViewControllerAnimated(true, completion: nil)
+          
+          let count = (UIApplication.sharedApplication().delegate as!
+               AppDelegate).memes.count
+          
+          let topTextFieldSaved = (UIApplication.sharedApplication().delegate as!
+               AppDelegate).memes[0].topText
      }
      
      // launches Activity View Controller
@@ -203,7 +209,6 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
           self.presentViewController(activityVC, animated: true, completion: nil)
      }
      
-
      @IBAction func shareButtonPressed(sender: AnyObject) {
           share()
      }
@@ -216,7 +221,5 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
           shareButton.enabled = false
           resetButton.enabled = false
      }
-     
-     
 }
 

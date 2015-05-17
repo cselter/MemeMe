@@ -13,15 +13,17 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
      
      let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
      
-     
      func viewDidAppear() {
           self.collectionView!.contentInset = UIEdgeInsetsMake(-36, 0, 0, 0);
+     }
+     
+     override func viewWillAppear(animated: Bool) {
+          self.collectionView?.reloadData()
      }
      
      // gets the number of items in the meme array
      override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
           let count = appDelegate.memes.count
-          println("-CollectionView- Count: \(count)") // debug
           return count
      }
      

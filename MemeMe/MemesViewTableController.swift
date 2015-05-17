@@ -1,4 +1,4 @@
-     //
+//
 //  MemesViewTableController.swift
 //  MemeMe
 //
@@ -9,32 +9,33 @@
 import Foundation
 import UIKit
      
-class MemesViewTableController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
-
+class MemesViewTableController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
+     
      let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
      
-     
      func viewDidAppear() {
-     self.tableView.contentInset = UIEdgeInsetsMake(-36, 0, 0, 0);
+          self.tableView!.contentInset = UIEdgeInsetsMake(-36, 0, 0, 0);
+     }
+     
+     override func viewWillAppear(animated: Bool) {
+          self.tableView?.reloadData()
      }
      
      // gets the number of items in the meme array
      override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
           let count = appDelegate.memes.count
-          println("Count: \(count)") // debug
           return count
      }
   
-     
      override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-          let cell = tableView.dequeueReusableCellWithIdentifier("MemeCell") as! UITableViewCell
+          let cell = tableView.dequeueReusableCellWithIdentifier("MemeTableCell", forIndexPath: indexPath) as! UITableViewCell
           
-          let meme = appDelegate.memes[indexPath.row]
+          let memeCell = appDelegate.memes[indexPath.row]
           
-          cell.imageView?.image = meme.memedImage
-          cell.textLabel?.text = meme.topText
+          cell.imageView?.image = memeCell.memedImage
           
+          cell.textLabel?.text = memeCell.topText
+     
           return cell
      }
-
 }
