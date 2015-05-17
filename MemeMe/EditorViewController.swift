@@ -27,6 +27,10 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
           NSStrokeWidthAttributeName : -3.0
      ]
      
+     override func prefersStatusBarHidden() -> Bool {
+          return true
+     }
+     
      override func viewWillAppear(animated: Bool) {
           cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
           
