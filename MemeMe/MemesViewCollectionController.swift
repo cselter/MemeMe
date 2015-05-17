@@ -48,6 +48,7 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
           let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
           
           detailController.meme = self.appDelegate.memes[indexPath.row]
+          detailController.memeIndex = indexPath.row
           
           self.navigationController!.pushViewController(detailController, animated: true)
      }
