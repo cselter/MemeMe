@@ -36,6 +36,8 @@ class MemesViewTableController: UITableViewController, UITableViewDataSource, UI
           
           cell.textLabel?.text = memeCell.topText
      
+          cell.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
+          
           return cell
      }
 }

@@ -19,6 +19,7 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
      
      override func viewWillAppear(animated: Bool) {
           self.collectionView?.reloadData()
+          self.collectionView?.backgroundColor = UIColor.whiteColor()
      }
      
      // gets the number of items in the meme array
