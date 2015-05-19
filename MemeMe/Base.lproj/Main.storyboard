@@ -304,7 +304,7 @@
                                 <items>
                                     <barButtonItem systemItem="edit" id="vl3-ne-6wc">
                                         <connections>
-                                            <segue destination="vXZ-lx-hvc" kind="presentation" identifier="editExistingMeme" id="D4F-Mn-JMQ"/>
+                                            <action selector="editMeme:" destination="yf8-oC-YIG" id="GUJ-Fy-JQC"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="M3i-aA-JRr"/>

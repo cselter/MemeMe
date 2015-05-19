@@ -20,6 +20,10 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
      @IBOutlet weak var topToolbar: UIToolbar!
      @IBOutlet weak var bottomToolbar: UIToolbar!
      
+     var isEdit = false
+     
+     var editMeme: Meme!
+     
      let memeTextAttributes = [
           NSStrokeColorAttributeName : UIColor.blackColor(),
           NSForegroundColorAttributeName : UIColor.whiteColor(),
@@ -44,8 +48,13 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
      override func viewDidLoad() {
           super.viewDidLoad()
           
-          topTextField.text = "TOP"
-          bottomTextField.text = "BOTTOM"
+          if isEdit == true {
+               
+               self.topTextField.text = editMeme.topText
+               self.bottomTextField.text = editMeme.bottomText
+               self.selectedImageView.image = editMeme.image
+               shareButton.enabled = true
+          }
           
           topTextField.delegate = self
           bottomTextField.delegate = self
@@ -56,7 +65,11 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
           topTextField.textAlignment = NSTextAlignment.Center
           bottomTextField.textAlignment = NSTextAlignment.Center
           
-          shareButton.enabled = false
+          if isEdit == false
+          {
+               shareButton.enabled = false
+          }
+          
      }
      
      // Select image from photo library to use
@@ -95,14 +108,17 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
      
      // Clears default text when user starts editing
      func textFieldDidBeginEditing(textField: UITextField) {
-          if topTextField.text == "TOP" {
-               topTextField.text = ""
-          }
           
-          if bottomTextField.text == "BOTTOM" {
-               bottomTextField.text = ""
+          if isEdit == false {
+               if topTextField.text == "TOP" {
+                    topTextField.text = ""
+               }
+               
+               if bottomTextField.text == "BOTTOM" {
+                    bottomTextField.text = ""
+               }
           }
-          
+
           resetButton.enabled = true
      }
      

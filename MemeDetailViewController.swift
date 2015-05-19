@@ -34,21 +34,18 @@ class MemeDetailViewController: UIViewController
           self.navigationController?.popViewControllerAnimated(true)
      }
      
-     // Open the Editor View Controller to edit the current meme
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-          if segue.identifier == "editExistingMeme"
-          {
-               println("Called prepareForSegue")
-               
-               let editVC = self.storyboard!.instantiateViewControllerWithIdentifier("EditorViewController") as! EditorViewController
+     @IBAction func editMeme(sender: AnyObject) {
           
-               editVC.topTextField?.text = "EDIT ME"
-               editVC.bottomTextField?.text = meme.bottomText
-               editVC.selectedImageView?.image = meme.image
-
-          }
+          var editVC:EditorViewController
+          editVC = self.storyboard?.instantiateViewControllerWithIdentifier("EditorViewController") as! EditorViewController
+          
+          editVC.isEdit = true
+          editVC.editMeme = self.meme
+          
+          
+          
+          self.presentViewController(editVC, animated: true, completion: nil)
      }
-     
-     
+
 }
 
