@@ -24,20 +24,31 @@ class MemeDetailViewController: UIViewController
           deleteButton.enabled = true
      }
      
-
-     
-     
-     
+     // Delete a Meme from the Detail View
      @IBAction func deleteMeme(sender: AnyObject) {
-          
           let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
           
           appDelegate.memes.removeAtIndex(memeIndex)
           deleteButton.enabled = false
           
-          // TODO: go back to previous view
           self.navigationController?.popViewControllerAnimated(true)
      }
+     
+     // Open the Editor View Controller to edit the current meme
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+          if segue.identifier == "editExistingMeme"
+          {
+               println("Called prepareForSegue")
+               
+               let editVC = self.storyboard!.instantiateViewControllerWithIdentifier("EditorViewController") as! EditorViewController
+          
+               editVC.topTextField?.text = "EDIT ME"
+               editVC.bottomTextField?.text = meme.bottomText
+               editVC.selectedImageView?.image = meme.image
+
+          }
+     }
+     
      
 }
 

@@ -13,15 +13,29 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
      
      let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
      
-     // Lower the top of the table view
-     func viewDidAppear() {
-          self.collectionView!.contentInset = UIEdgeInsetsMake(-36, 0, 0, 0);
+     override func viewDidAppear(animated: Bool) {
+          
+          // open the Meme Editor VC if no memes exist yet
+          if appDelegate.memes.count == 0
+          {
+               var emptyMemesAlert = UIAlertView()
+               emptyMemesAlert.title = "No Memes"
+               emptyMemesAlert.message = "There are no memes. Please create one!"
+               emptyMemesAlert.addButtonWithTitle("OK")
+               emptyMemesAlert.show()
+               
+               openEditor(self)
+          }
      }
      
      // Reload the data each time the view is selected
      override func viewWillAppear(animated: Bool) {
           self.collectionView?.reloadData()
           self.collectionView?.backgroundColor = UIColor.whiteColor()
+     }
+     
+     func openEditor(sender: AnyObject) {
+          self.performSegueWithIdentifier("newMemeFromGrid", sender: self)
      }
      
      // gets the number of items in the meme array

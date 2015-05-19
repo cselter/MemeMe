@@ -12,16 +12,31 @@ import UIKit
 class MemesViewTableController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
      
      let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-     
-     // Lower the top of the table view
-     func viewDidAppear() {
-          self.tableView!.contentInset = UIEdgeInsetsMake(-36, 0, 0, 0);
+
+     override func viewDidAppear(animated: Bool) {
+          
+          // open the Meme Editor VC if no memes exist yet
+          if appDelegate.memes.count == 0
+          {
+               var emptyMemesAlert = UIAlertView()
+               emptyMemesAlert.title = "No Memes"
+               emptyMemesAlert.message = "There are no memes. Please create one!"
+               emptyMemesAlert.addButtonWithTitle("OK")
+               emptyMemesAlert.show()
+               
+               openEditor(self)
+          }
      }
      
      // Reload the data each time the view is selected
      override func viewWillAppear(animated: Bool) {
           self.tableView?.reloadData()
      }
+     
+     @IBAction func openEditor(sender: AnyObject) {
+          self.performSegueWithIdentifier("newMemeFromTable", sender: self)
+     }
+     
      
      // gets the number of items in the meme array
      override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
