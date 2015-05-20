@@ -69,7 +69,7 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
           self.navigationController!.pushViewController(detailController, animated: true)
      }
      
-     // Delete a meme
+     // edit button that allows deleting meme from collection view
      
      
 }

@@ -183,6 +183,11 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Sent Memes" id="3Oj-Md-a6V">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="Ejn-ye-DqR">
+                            <connections>
+                                <action selector="editButtonSelected:" destination="mIP-jU-ycf" id="z4G-qr-9GK"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="niK-CX-ttS">
                             <connections>
                                 <action selector="openEditor:" destination="mIP-jU-ycf" id="XPm-AT-yhA"/>
@@ -190,6 +195,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="editButton" destination="Ejn-ye-DqR" id="l7r-QQ-9CN"/>
                         <outlet property="tableView" destination="hMv-Km-Of2" id="Hf8-2t-sOU"/>
                         <segue destination="vXZ-lx-hvc" kind="presentation" identifier="newMemeFromTable" id="VWx-oH-5V3"/>
                     </connections>
@@ -412,6 +418,6 @@
         <image name="list" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="VWx-oH-5V3"/>
+        <segue reference="89t-tc-Wzk"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -13,6 +13,8 @@ import UIKit
      
 class MemesViewTableController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
      
+     @IBOutlet weak var editButton: UIBarButtonItem!
+     
      let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
      override func viewDidAppear(animated: Bool) {
@@ -85,5 +87,21 @@ class MemesViewTableController: UITableViewController, UITableViewDataSource, UI
                     return
           }
      }
-
+     
+     // edit button that allows deleting memes from table view
+     @IBAction func editButtonSelected(sender: AnyObject) {
+          
+          // Alternate Editing State of TableView
+          let currState = self.tableView.editing
+          let nextState = !currState
+          
+          self.tableView.setEditing(nextState, animated: true)
+          
+          if nextState {
+               editButton.title = "Done"
+          }
+          else {
+               editButton.title = "Edit"
+          }
+     }
 }
