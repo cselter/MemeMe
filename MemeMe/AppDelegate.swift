@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Christopher Burgess. All rights reserved.
 //
 
+// Tab Bar Icons designed by Freepik
+
 import UIKit
 
 @UIApplicationMain
