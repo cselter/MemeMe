@@ -67,4 +67,21 @@ class MemesViewTableController: UITableViewController, UITableViewDataSource, UI
           
           self.navigationController?.pushViewController(detailController, animated: true)
      }
+     
+     // Delete a meme
+     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+  
+          switch editingStyle {
+               case .Delete:
+                    // Delete the meme from the model
+                    appDelegate.memes.removeAtIndex(indexPath.row)
+
+                    // remove row and refresh local data
+                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
+
+               default:
+                    return
+          }
+     }
+
 }
