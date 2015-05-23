@@ -35,6 +35,8 @@ class MemesViewTableController: UITableViewController, UITableViewDataSource, UI
      // Reload the data each time the view is selected
      override func viewWillAppear(animated: Bool) {
           self.tableView?.reloadData()
+          
+          self.editButton.enabled = (appDelegate.memes.count > 0)
      }
      
      @IBAction func openEditor(sender: AnyObject) {
@@ -102,6 +104,7 @@ class MemesViewTableController: UITableViewController, UITableViewDataSource, UI
           }
           else {
                editButton.title = "Edit"
+               editButton.enabled = (appDelegate.memes.count > 0)
           }
      }
 }

@@ -14,6 +14,20 @@ import UIKit
 class MemesViewCollectionController: UICollectionViewController, UICollectionViewDelegate, UICollectionViewDataSource {
      
      let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+
+     @IBOutlet weak var memeCV: UICollectionView!
+     @IBOutlet weak var editButton: UIBarButtonItem!
+     @IBOutlet weak var addDeleteButton: UIBarButtonItem!
+     @IBOutlet weak var navBar: UINavigationItem!
+     
+     var editItems = false
+     var selectedItems = Set<NSIndexPath>()
+     
+     override func viewDidLoad() {
+          memeCV.allowsMultipleSelection = true
+          
+          println("viewDidLoad fired for collection view controller")
+     }
      
      override func viewDidAppear(animated: Bool) {
           
@@ -36,8 +50,16 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
           self.collectionView?.backgroundColor = UIColor.whiteColor()
      }
      
-     func openEditor(sender: AnyObject) {
-          self.performSegueWithIdentifier("newMemeFromGrid", sender: self)
+     // open the editor VC to create a new meme
+     @IBAction func openEditor(sender: AnyObject) {
+          
+          if self.editItems
+          {
+              println("No Way Jose! You're editing!")
+          }
+          else {
+               self.performSegueWithIdentifier("newMemeFromGrid", sender: self)
+          }
      }
      
      // gets the number of items in the meme array
@@ -56,20 +78,110 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
           
           cell.backgroundView = cell.cellImageView
           
+          if self.selectedItems.contains(indexPath) {
+               cell.isSelected(true)
+          }
+          else {
+               cell.isSelected(false)
+          }
+          
           return cell
      }
      
      // Show Detail View when cell is selected
      override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-          let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
           
-          detailController.meme = self.appDelegate.memes[indexPath.row]
-          detailController.memeIndex = indexPath.row
+          // if editing is enabled
+          if self.editItems {
+               
+               self.navBar.rightBarButtonItem?.enabled = true
+               let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MemeCollectionViewCell
+
+               cell.isSelected(true)
+               self.selectedItems.insert(indexPath)
+          }
+          // otherwise view selected meme
+          else {
+               let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
           
-          self.navigationController!.pushViewController(detailController, animated: true)
+               detailController.meme = self.appDelegate.memes[indexPath.row]
+               detailController.memeIndex = indexPath.row
+          
+               self.navigationController!.pushViewController(detailController, animated: true)
+          }
+     }
+     
+     // when a cell item is deselected
+     override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+          
+          if self.editItems {
+               
+               if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MemeCollectionViewCell {
+                    cell.isSelected(false)
+               }
+               
+               self.selectedItems.remove(indexPath)
+               
+               self.navBar.rightBarButtonItem?.enabled = (selectedItems.count > 0)
+          }
      }
      
      // edit button that allows deleting meme from collection view
+     @IBAction func editButtonSelected(sender: AnyObject) {
+         
+          self.editItems = !self.editItems
+          
+          if self.editItems {
+               // Edit pressed
+               editButton.title = "Done"
+               
+               let deleteButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Trash, target: self, action: "deleteSelectedMemes:")
+               
+               navBar.rightBarButtonItem = deleteButton
+               // intially disable trash button until at least one item is selected
+               navBar.rightBarButtonItem?.enabled = false
+          }
+          else {
+               // Done pressed
+               editButton.title = "Edit"
+               
+               // deselect everything still selected
+               for indexPath in self.selectedItems {
+                    self.memeCV.deselectItemAtIndexPath(indexPath, animated: false)
+                    
+                    if let cell = self.memeCV.cellForItemAtIndexPath(indexPath) as? MemeCollectionViewCell {
+                         cell.isSelected(false)
+                    }
+               }
+               self.selectedItems.removeAll(keepCapacity: false)
+               
+               // update the action item back to Add Meme
+               let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "openEditor:")
+               navBar.rightBarButtonItem = addButton
+          }
+     }
      
-     
+     // delete all memes that are currently selected
+     func deleteSelectedMemes(sender: AnyObject) {
+          println("Delete Selected Memes!")
+          
+          if selectedItems.count > 0 {
+               
+               var arrayOfMemeIndexPathsToDelete = Array(self.selectedItems)
+               
+               arrayOfMemeIndexPathsToDelete.sort {
+                    (indexPath1 : NSIndexPath, indexPath2: NSIndexPath) -> Bool in return indexPath1.item > indexPath2.item
+               }
+               
+               for indexPath in arrayOfMemeIndexPathsToDelete {
+                    appDelegate.memes.removeAtIndex(indexPath.item)
+               }
+               
+               self.selectedItems.removeAll(keepCapacity: false)
+               
+               // reload the view
+               self.collectionView?.reloadData()
+               self.navBar.rightBarButtonItem?.enabled = (selectedItems.count > 0)
+          }
+     }
 }

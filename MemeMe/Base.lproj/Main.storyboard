@@ -250,7 +250,13 @@
                                     <rect key="frame" x="0.0" y="0.0" width="115" height="115"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7dq-bQ-y1W">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7dq-bQ-y1W">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="0.0" y="0.0" width="115" height="115"/>
+                                            </variation>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="selectedCell" translatesAutoresizingMaskIntoConstraints="NO" id="SAr-1j-TS8">
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                             <variation key="widthClass=compact" fixedFrame="YES">
                                                 <rect key="frame" x="0.0" y="0.0" width="115" height="115"/>
@@ -262,15 +268,18 @@
                                 <variation key="default">
                                     <mask key="subviews">
                                         <exclude reference="7dq-bQ-y1W"/>
+                                        <exclude reference="SAr-1j-TS8"/>
                                     </mask>
                                 </variation>
                                 <variation key="widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="7dq-bQ-y1W"/>
+                                        <include reference="SAr-1j-TS8"/>
                                     </mask>
                                 </variation>
                                 <connections>
                                     <outlet property="cellImageView" destination="7dq-bQ-y1W" id="avR-sU-9sC"/>
+                                    <outlet property="selectedImageView" destination="SAr-1j-TS8" id="mxL-5z-Ryc"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -280,12 +289,24 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Sent Memes" id="xr5-om-YbF">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="gLM-Va-IDS">
+                            <connections>
+                                <action selector="editButtonSelected:" destination="KPD-ux-7h2" id="4v1-La-gNa"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="dVH-DO-cXH">
                             <connections>
+                                <action selector="openEditor:" destination="KPD-ux-7h2" id="Nsy-hS-Eve"/>
                                 <segue destination="vXZ-lx-hvc" kind="presentation" identifier="newMemeFromGrid" id="89t-tc-Wzk"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addDeleteButton" destination="dVH-DO-cXH" id="svr-n8-NqF"/>
+                        <outlet property="editButton" destination="gLM-Va-IDS" id="eGy-iP-mw6"/>
+                        <outlet property="memeCV" destination="pXI-XP-rq0" id="ZEO-sK-j2x"/>
+                        <outlet property="navBar" destination="xr5-om-YbF" id="HFQ-GQ-hcS"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zp8-oj-NZ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -416,6 +437,7 @@
     <resources>
         <image name="grid" width="30" height="30"/>
         <image name="list" width="30" height="30"/>
+        <image name="selectedCell" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="89t-tc-Wzk"/>
