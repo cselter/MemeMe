@@ -35,14 +35,12 @@ class MemesViewTableController: UITableViewController, UITableViewDataSource, UI
      // Reload the data each time the view is selected
      override func viewWillAppear(animated: Bool) {
           self.tableView?.reloadData()
-          
           self.editButton.enabled = (appDelegate.memes.count > 0)
      }
      
      @IBAction func openEditor(sender: AnyObject) {
           self.performSegueWithIdentifier("newMemeFromTable", sender: self)
      }
-     
      
      // gets the number of items in the meme array
      override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,11 +51,8 @@ class MemesViewTableController: UITableViewController, UITableViewDataSource, UI
      // Return cell for each grid row
      override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
           let cell = tableView.dequeueReusableCellWithIdentifier("MemeTableCell", forIndexPath: indexPath) as! UITableViewCell
-          
           let memeCell = appDelegate.memes[indexPath.row]
-
           cell.imageView?.image = memeCell.memedImage
-          
           cell.textLabel?.text = memeCell.topText
     
           return cell
@@ -66,9 +61,7 @@ class MemesViewTableController: UITableViewController, UITableViewDataSource, UI
      // Show Detail View when row is selected
      override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
           let detailController = self.storyboard?.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
-          
           detailController.meme = self.appDelegate.memes[indexPath.row]
-        
           detailController.memeIndex = indexPath.row
           
           self.navigationController?.pushViewController(detailController, animated: true)

@@ -25,8 +25,6 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
      
      override func viewDidLoad() {
           memeCV.allowsMultipleSelection = true
-          
-          println("viewDidLoad fired for collection view controller")
      }
      
      override func viewDidAppear(animated: Bool) {
@@ -135,7 +133,7 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
                // Edit pressed
                editButton.title = "Done"
                
-               let deleteButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Trash, target: self, action: "deleteSelectedMemes:")
+               let deleteButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Trash, target: self, action: "deleteMemesAlert:")
                
                navBar.rightBarButtonItem = deleteButton
                // intially disable trash button until at least one item is selected
@@ -161,12 +159,30 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
           }
      }
      
+     // give the user an alert asking to confirm delete
+     func deleteMemesAlert(sender: AnyObject) {
+          if selectedItems.count > 0 {
+               let deleteAlert = UIAlertController()
+               deleteAlert.title = "Are you sure you want to delete these AWESOME memes?!"
+               
+               let deleteThem = UIAlertAction(title: "Delete them!", style: UIAlertActionStyle.Destructive) {
+                    action in self.deleteSelectedMemes(self)
+               }
+               
+               let keepThem = UIAlertAction(title: "NO! Keep them!", style: UIAlertActionStyle.Destructive) {
+                    action in self.dismissViewControllerAnimated(true, completion: nil)
+               }
+               
+               deleteAlert.addAction(deleteThem)
+               deleteAlert.addAction(keepThem)
+               
+               self.presentViewController(deleteAlert, animated: true, completion: nil)
+          }
+     }
+     
      // delete all memes that are currently selected
      func deleteSelectedMemes(sender: AnyObject) {
-          println("Delete Selected Memes!")
-          
           if selectedItems.count > 0 {
-               
                var arrayOfMemeIndexPathsToDelete = Array(self.selectedItems)
                
                arrayOfMemeIndexPathsToDelete.sort {

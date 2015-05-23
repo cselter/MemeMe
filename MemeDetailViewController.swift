@@ -14,7 +14,6 @@ import UIKit
 class MemeDetailViewController: UIViewController
 {
      @IBOutlet weak var memeImageView: UIImageView!
-
      @IBOutlet weak var editButton: UIBarButtonItem!
      @IBOutlet weak var deleteButton: UIBarButtonItem!
      
@@ -36,6 +35,8 @@ class MemeDetailViewController: UIViewController
           self.navigationController?.popViewControllerAnimated(true)
      }
      
+     // open editor with original meme image and top/bottom text pre-filled
+     // does not overwrite original memed image
      @IBAction func editMeme(sender: AnyObject) {
           
           var editVC:EditorViewController
@@ -44,10 +45,6 @@ class MemeDetailViewController: UIViewController
           editVC.isEdit = true
           editVC.editMeme = self.meme
           
-          
-          
           self.presentViewController(editVC, animated: true, completion: nil)
      }
-
 }
-

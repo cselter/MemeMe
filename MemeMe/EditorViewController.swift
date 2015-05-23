@@ -39,7 +39,6 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
      
      override func viewWillAppear(animated: Bool) {
           cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
-          
           self.subscribeToKeyboardNotifications()
      }
      
@@ -213,9 +212,7 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
      
      // launches Activity View Controller
      @IBAction func share(sender: AnyObject) {
-          
           let completedMeme = generateMemedImage()
-          
           let activityVC = UIActivityViewController(activityItems: [completedMeme], applicationActivities: nil)
           
           activityVC.completionWithItemsHandler = {
