@@ -22,6 +22,7 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
      
      var editItems = false
      var selectedItems = Set<NSIndexPath>()
+     var noMemeAlertShown = false
      
      override func viewDidLoad() {
           memeCV.allowsMultipleSelection = true
@@ -30,7 +31,7 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
      override func viewDidAppear(animated: Bool) {
           
           // open the Meme Editor VC if no memes exist yet
-          if appDelegate.memes.count == 0
+          if appDelegate.memes.count == 0 && noMemeAlertShown == false
           {
                var emptyMemesAlert = UIAlertView()
                emptyMemesAlert.title = "No Memes"
@@ -38,6 +39,7 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
                emptyMemesAlert.addButtonWithTitle("OK")
                emptyMemesAlert.show()
                
+               noMemeAlertShown = true
                openEditor(self)
           }
      }

@@ -14,13 +14,14 @@ import UIKit
 class MemesViewTableController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
      
      @IBOutlet weak var editButton: UIBarButtonItem!
+     var noMemeAlertShown = false
      
      let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
      override func viewDidAppear(animated: Bool) {
           
           // open the Meme Editor VC if no memes exist yet
-          if appDelegate.memes.count == 0
+          if appDelegate.memes.count == 0 && noMemeAlertShown == false
           {
                var emptyMemesAlert = UIAlertView()
                emptyMemesAlert.title = "No Memes"
@@ -28,6 +29,7 @@ class MemesViewTableController: UITableViewController, UITableViewDataSource, UI
                emptyMemesAlert.addButtonWithTitle("OK")
                emptyMemesAlert.show()
                
+               noMemeAlertShown = true
                openEditor(self)
           }
      }
