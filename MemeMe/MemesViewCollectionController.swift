@@ -29,7 +29,6 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
      }
      
      override func viewDidAppear(animated: Bool) {
-          
           // open the Meme Editor VC if no memes exist yet
           if appDelegate.memes.count == 0 && noMemeAlertShown == false
           {
@@ -46,6 +45,7 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
      
      // Reload the data each time the view is selected
      override func viewWillAppear(animated: Bool) {
+          super.viewWillAppear(animated)
           self.collectionView?.reloadData()
           self.collectionView?.backgroundColor = UIColor.whiteColor()
      }
@@ -64,8 +64,7 @@ class MemesViewCollectionController: UICollectionViewController, UICollectionVie
      
      // gets the number of items in the meme array
      override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-          let count = appDelegate.memes.count
-          return count
+          return appDelegate.memes.count
      }
      
      // Return cell for each grid cell

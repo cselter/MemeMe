@@ -36,6 +36,7 @@ class MemesViewTableController: UITableViewController, UITableViewDataSource, UI
      
      // Reload the data each time the view is selected
      override func viewWillAppear(animated: Bool) {
+          super.viewWillAppear(animated)
           self.tableView?.reloadData()
           self.editButton.enabled = (appDelegate.memes.count > 0)
      }
@@ -46,8 +47,7 @@ class MemesViewTableController: UITableViewController, UITableViewDataSource, UI
      
      // gets the number of items in the meme array
      override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-          let count = appDelegate.memes.count
-          return count
+          return appDelegate.memes.count
      }
   
      // Return cell for each grid row
